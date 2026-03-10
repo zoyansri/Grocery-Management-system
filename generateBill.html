@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <link rel="stylesheet" href="generateBill.css">
+</head>
+<body>
+    <div class="page">
+        <div class="search">
+            <input type="number" id="uniqueID">
+            <input type="text" id="userName" readonly>
+        </div>
+        <div class="look">
+            <h1>Billing Counter</h1>
+            <div class="purchases">
+                <table>
+                        <tr>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    <tbody id="item-list">
+                        <!-- Dynamic rows via JS --> 
+                    </tbody>
+                </table>
+            </div>
+            <div class="toPay">
+                <table>
+                    <tr>
+                        <td>Total</td>
+                        <td id="a"></td>
+                    </tr>
+                    <tr>
+                        <td>Discount</td>
+                        <td id="discountAmount"></td>
+                    </tr>
+                    <tr>
+                        <td>Net Amount</td>
+                        <td id="netAmount"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="allButtons">
+            <button type="button" id="print" class="firstButtons">Print</button>
+            <button type="reset" id="reset" class="firstButtons">Reset</button>
+            <button type="button" id="payVia" class="firstButtons">payVia</button>
+        </div>
+    </div>
+    <div class="payOptions" hidden>
+        <button type="button" id="cash" class="payButtons">Cash</button>
+        <button type="button" id="scan" class="payButtons">Scan</button>
+        <button type="button" id="card" class="payButtons">Card</button>
+    </div>
+    <script src="generateBill.js"></script>
+</body>
+</html>

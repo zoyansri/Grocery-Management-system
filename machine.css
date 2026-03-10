@@ -1,0 +1,55 @@
+body{
+    width:200px;
+    justify-content:center;
+    justify-self:center;
+    background-color:#bb7c4c;
+}
+#head{
+    text-align:center;
+    border:none;
+    border-radius:10px;
+    background-color:#a8bba3;
+    color:#f7faea;
+}
+.form,.summary{
+    border:none;
+    border-radius:10px;
+    margin:5px;
+    background-color:#ebd9d1;
+    padding: 10px;
+    text-align:center;
+}
+#qty{
+    padding:2px;
+    width:100px;
+}
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#give{
+    width:165px;
+}
+#increment,#decrement{
+    border:none;
+    border-radius:50%;
+}
+.digit {
+ 
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #dabbae;
+  box-shadow: 0px 2px 4px rgb(0, 0, 0);
+  cursor: pointer;
+  padding:5px;
+  color:#5a5353;
+}
+#reset {
+  grid-column: span 2;
+}

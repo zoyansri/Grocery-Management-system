@@ -1,0 +1,20 @@
+div{
+    background-color: antiquewhite ;
+    border : none;
+    border-radius : 5px ;
+    box-shadow : 0px 4px 4px rgb(0, 0, 0);
+    justify-content :center ;
+    justify-self : center ;
+    width : fit-content ;
+    text-align : center ;
+    margin: 40px ;
+    padding: 10px;
+}
+#id{
+    width : 80% ;
+    color : #e7d7c1 ;
+    background-color : #88756e ;
+    border : none ;
+    border-radius : 5px ;
+    font-size :large ;
+}

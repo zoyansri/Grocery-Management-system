@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>bandages</title>
+  <link rel="stylesheet" href="machine.css" />
+</head>
+<body>
+  <div id="head">
+    <h1 id="name" value="Bandages">Bandages</h1>
+    <input id="machineID" class="notForUser" value="M012" hidden>
+    <input id="status" class="notForUser" value="working" hidden>
+    <input id="productID" class="notForUser" value="P010"hidden>
+  </div>
+  <div class = "form">
+    <div class="idSection">
+      <label>Enter ID</label><br>
+      <input type="number" id= "uniqueID" maxlength="10" required><br><br>
+    </div>
+    <div class="qtySection">
+      <button type = "button" id = "decrement" disabled>-</button>
+      <input type ="number" id = "qty" disabled>
+      <button type = "button" id = "increment" disabled>+</button><br>
+      <button type = "submit" id = "give" disabled> Get</button>
+    </div>
+    <div class="keypad">
+      <button type="button" id="1" class="digit">1</button>
+      <button type="button" id="2" class="digit">2</button>
+      <button type="button" id="3" class="digit">3</button>
+      <button type="button" id="4" class="digit">4</button>
+      <button type="button" id="5" class="digit">5</button>
+      <button type="button" id="6" class="digit">6</button>
+      <button type="button" id="7" class="digit">7</button>
+      <button type="button" id="8" class="digit">8</button>        
+      <button type="button" id="9" class="digit">9</button>
+      <button type="button" id="0" class="digit">0</button>
+      <button type="reset" id="reset" class="digit">Reset</button>
+    </div>
+  </div>
+  <div class="summary" hidden>
+    <span id="displayQty"></span>
+    <span id="displayName"></span>
+    <p> added to your bill by the ID</p>
+    <span id="displayID"></span>
+  </div>
+  <script src = "machine.js"></script>
+</body>
+</html>

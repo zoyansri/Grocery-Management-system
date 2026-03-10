@@ -1,0 +1,26 @@
+.screen{
+    justify-content:center;
+    justify-self:center;
+    font-size:15px;
+    padding:8px;
+    background-color:antiquewhite;
+}
+.details{
+    background-color:white;
+    padding:10px;
+}
+.screen,.details{
+    box-shadow:0px 4px 4px rgb(0,0,0,0.25);
+    border-radius:3px;
+}
+button{
+    margin:5px;
+    justify-content:center;
+    background-color:white;
+    border:none;
+    justify-self:right;
+}
+.button{
+    justify-self:flex-end;
+    padding:2px;
+}
