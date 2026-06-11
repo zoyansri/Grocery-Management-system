@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
   disableControls();
   showDigits();
 
+  const storedID = localStorage.getItem("customerID");
+  if (storedID) {
+    getID.value = storedID;
+  }
+
   numbers.forEach((number) => {
     number.addEventListener("click", () => {
       const digit = number.textContent.trim();
