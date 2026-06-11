@@ -17,103 +17,116 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const page = document.querySelector(".page");
 
-// Fetch billing data on input
+  // 🔑 Auto-fill ID from localStorage (generated at entrance)
+  const storedID = localStorage.getItem("customerID");
+  if (storedID) {
+    searchInput.value = storedID;
+    fetchBill(storedID); // auto-fetch bill immediately
+  }
+
+  // Manual input fallback
   searchInput.addEventListener("input", () => {
     const uniqueID = searchInput.value.trim();
     if (uniqueID.length === 4 && !isNaN(uniqueID)) {
-      fetch("http://localhost:8080/SmartGroceryManagementSystem/billing", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uniqueID })
-      })
-        .then(response => response.text())
-        .then(text => {
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch (err) {
-            console.error("Failed to parse response as JSON:", err);
-            userName.value = "Error";
-            itemList.innerHTML = "<tr><td colspan='4'>Invalid response format</td></tr>";
-            totalAmountCell.textContent = "₹0.00";
-            discountCell.textContent = "₹0.00";
-            netAmountCell.textContent = "₹0.00";
-            return;
-          }
+      fetchBill(uniqueID);
+    }
+  });
 
-          userName.value = data.userName || "Unknown";
-          itemList.innerHTML = "";
-
-          let total = 0;
-
-          if (!data.item || data.item.length === 0) {
-            itemList.innerHTML = "<tr><td colspan='4'>No items found</td></tr>";
-            totalAmountCell.textContent = "₹0.00";
-            discountCell.textContent = "₹0.00";
-            netAmountCell.textContent = "₹0.00";
-            return;
-          }
-
-          data.item.forEach(item => {
-            const quantity = parseInt(item.quantity);
-            const price = parseFloat(item.price);
-            const itemTotal = price * quantity;
-
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td>${item.name}</td>
-              <td>${quantity}</td>
-              <td>${price.toFixed(2)}</td>
-              <td>${itemTotal.toFixed(2)}</td>
-            `;
-            itemList.appendChild(row);
-            total += itemTotal;
-          });
-
-          const discount = total >= 5000 ? total * 0.03 : 0;
-          const net = total - discount;
-
-          totalAmountCell.textContent = `₹${total.toFixed(2)}`;
-          discountCell.textContent = `₹${discount.toFixed(2)}`;
-          netAmountCell.textContent = `₹${net.toFixed(2)}`;
-        })
-        .catch(error => {
-          console.error("Error fetching billing data:", error);
+  // Function to fetch and render bill
+  function fetchBill(uniqueID) {
+    fetch("http://localhost:8080/SmartGroceryManagementSystem/billing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ uniqueID })
+    })
+      .then(response => response.text())
+      .then(text => {
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (err) {
+          console.error("Failed to parse response as JSON:", err);
           userName.value = "Error";
-          itemList.innerHTML = "<tr><td colspan='4'>Error fetching data</td></tr>";
+          itemList.innerHTML = "<tr><td colspan='4'>Invalid response format</td></tr>";
           totalAmountCell.textContent = "₹0.00";
           discountCell.textContent = "₹0.00";
           netAmountCell.textContent = "₹0.00";
+          return;
+        }
+
+        userName.value = data.userName || "Unknown";
+        itemList.innerHTML = "";
+
+        let total = 0;
+
+        if (!data.item || data.item.length === 0) {
+          itemList.innerHTML = "<tr><td colspan='4'>No items found</td></tr>";
+          totalAmountCell.textContent = "₹0.00";
+          discountCell.textContent = "₹0.00";
+          netAmountCell.textContent = "₹0.00";
+          return;
+        }
+
+        data.item.forEach(item => {
+          const quantity = parseInt(item.quantity);
+          const price = parseFloat(item.price);
+          const itemTotal = price * quantity;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${quantity}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>${itemTotal.toFixed(2)}</td>
+          `;
+          itemList.appendChild(row);
+          total += itemTotal;
         });
-    }
-  });
-//Print button
+
+        const discount = total >= 5000 ? total * 0.03 : 0;
+        const net = total - discount;
+
+        totalAmountCell.textContent = `₹${total.toFixed(2)}`;
+        discountCell.textContent = `₹${discount.toFixed(2)}`;
+        netAmountCell.textContent = `₹${net.toFixed(2)}`;
+      })
+      .catch(error => {
+        console.error("Error fetching billing data:", error);
+        userName.value = "Error";
+        itemList.innerHTML = "<tr><td colspan='4'>Error fetching data</td></tr>";
+        totalAmountCell.textContent = "₹0.00";
+        discountCell.textContent = "₹0.00";
+        netAmountCell.textContent = "₹0.00";
+      });
+  }
+
+  // Print button
   printBtn.addEventListener("click", () => {
     window.print();
   });
 
-//Reset button
+  // Reset button
   resetBtn.addEventListener("click", () => {
     location.reload();
   });
 
-// Show only payment buttons
+  // Show only payment buttons
   payViaBtn.addEventListener("click", () => {
     page.style.display = "none";
     payOptions.hidden = false;
   });
 
-//Load cash.html
+  // Load cash.html
   cashBtn.addEventListener("click", () => {
     loadForm("cash.html");
   });
 
-//Load card.html
+  // Load card.html
   cardBtn.addEventListener("click", () => {
     loadForm("card.html");
   });
 
-//Load scan.html and generate QR
+  // Load scan.html and generate QR
   scanBtn.addEventListener("click", () => {
     loadForm("scan.html", () => {
       const netAmount = document.getElementById("netAmount")?.textContent.replace("₹", "").trim();
@@ -129,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-//Utility: Load external form and hide everything else
+  // Utility: Load external form and hide everything else
   function loadForm(url, callback) {
     document.body.innerHTML = ""; // Clear entire page
     fetch(url)
@@ -142,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           location.reload(); // Reloads the original billing page
         }, 5000);
-
       })
       .catch(err => {
         console.error(`Failed to load ${url}:`, err);
