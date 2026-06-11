@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>bandages</title>
-  <link rel="stylesheet" href="machine.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandages Machine</title>
+  <link rel="stylesheet" href="machine.css">
 </head>
 <body>
   <div id="head">
-    <h1 id="name" value="Bandages">Bandages</h1>
-    <input id="machineID" class="notForUser" value="M012" hidden>
-    <input id="status" class="notForUser" value="working" hidden>
-    <input id="productID" class="notForUser" value="P010"hidden>
+    <h2 id="name">Bandages</h2>
+    <input type="hidden" id="machineID" value="M01">
+    <input type="hidden" id="productID" value="P01">
   </div>
-  <div class = "form">
-    <div class="idSection">
-      <label>Enter ID</label><br>
-      <input type="number" id= "uniqueID" maxlength="10" required><br><br>
-    </div>
-    <div class="qtySection">
-      <button type = "button" id = "decrement" disabled>-</button>
-      <input type ="number" id = "qty" disabled>
-      <button type = "button" id = "increment" disabled>+</button><br>
-      <button type = "submit" id = "give" disabled> Get</button>
-    </div>
-    <div class="keypad">
-      <button type="button" id="1" class="digit">1</button>
-      <button type="button" id="2" class="digit">2</button>
-      <button type="button" id="3" class="digit">3</button>
-      <button type="button" id="4" class="digit">4</button>
-      <button type="button" id="5" class="digit">5</button>
-      <button type="button" id="6" class="digit">6</button>
-      <button type="button" id="7" class="digit">7</button>
-      <button type="button" id="8" class="digit">8</button>        
-      <button type="button" id="9" class="digit">9</button>
-      <button type="button" id="0" class="digit">0</button>
-      <button type="reset" id="reset" class="digit">Reset</button>
+
+  <div class="form">
+    <input type="text" id="uniqueID" placeholder="Enter ID">
+    <button id="decrement">-</button>
+    <input type="number" id="qty" value="0">
+    <button id="increment">+</button>
+    <button id="give">Withdraw</button>
+    <button id="reset">Reset</button>
+
+    <!-- Digit buttons -->
+    <div class="digits">
+      <button class="digit">1</button>
+      <button class="digit">2</button>
+      <button class="digit">3</button>
+      <button class="digit">4</button>
+      <button class="digit">5</button>
+      <button class="digit">6</button>
+      <button class="digit">7</button>
+      <button class="digit">8</button>
+      <button class="digit">9</button>
+      <button class="digit">0</button>
     </div>
   </div>
-  <div class="summary" hidden>
-    <span id="displayQty"></span>
-    <span id="displayName"></span>
-    <p> added to your bill by the ID</p>
-    <span id="displayID"></span>
+
+  <div class="summary" style="display:none;">
+    <p>Item: <span id="displayName"></span></p>
+    <p>Qty: <span id="displayQty"></span></p>
+    <p>ID: <span id="displayID"></span></p>
   </div>
-  <script src = "machine.js"></script>
+
+  <script src="machine.js"></script>
 </body>
 </html>
