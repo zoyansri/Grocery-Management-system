@@ -27,11 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   disableControls();
   showDigits();
 
-  const storedID = localStorage.getItem("customerID");
-  if (storedID) {
-    getID.value = storedID;
-  }
-
   numbers.forEach((number) => {
     number.addEventListener("click", () => {
       const digit = number.textContent.trim();
@@ -110,6 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
         head.style.display = "none";
         form.style.display = "none";
         summary.style.display = "block";
+        setTimeout(() => {
+          window.location.href = "generateBill.html";
+        }, 5000);
       })
       .catch((error) => {
         console.error("Update error:", error);
